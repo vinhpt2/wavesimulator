@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sóng cơ học 2.5D</title>
+    <link rel="stylesheet" type="text/css" href="images/song.css" />
+    <script type="text/javascript" src="Const.js"></script>
+<script type="text/javascript" src="sprite/SpriteZManager.js"></script>
+<script type="text/javascript" src="ani/SongZ.js"></script>
+<script type="text/javascript" src="Handler.js"></script>
+
+</head>
+<body onload="init()">
+<center>
+    <strong style="font-size:x-large">SÓNG CƠ HỌC</strong>
+</center>
+    &nbsp;&nbsp;<span id="butMoPhong" class="on" onclick="this.className='on';butHienTuong.className='off';tabMoPhong.style.display='';tabHienTuong.style.display='none'" >&nbsp;Mô phỏng&nbsp;</span>
+    <span id="butHienTuong" class="off" onclick="this.className='on';butMoPhong.className='off';tabHienTuong.style.display='';tabMoPhong.style.display='none'">&nbsp;<a href="VideoSong.html" target="video">Thực nghiệm</a>&nbsp;</span>
+    
+<div id="tabMoPhong" class="tab">
+<center>
+<table>
+    <tr>
+        <td align="right" valign="middle">
+            <strong>Sóng nước&nbsp;&nbsp;</strong><br />
+            &nbsp;&nbsp;1 chiều<input type="radio" class="chk" name="radDim" onclick="radDim_click(1,true)"/><br />
+            &nbsp;&nbsp;2 chiều<input type="radio" class="chk" name="radDim" checked="checked" onclick="radDim_click(2,true)"/><br />
+            <strong>Sóng âm&nbsp;&nbsp;</strong><br />
+            &nbsp;&nbsp;1 chiều<input type="radio" class="chk" name="radDim" onclick="radDim_click(1)"/><br />
+            &nbsp;&nbsp;2 chiều<input type="radio" class="chk" name="radDim" onclick="radDim_click(2)"/><br />
+            &nbsp;&nbsp;3 chiều<input type="radio" class="chk" name="radDim" onclick="radDim_click(3)"/><br />
+            <hr/><br />
+            <span title="Tọa độ nguồn"><strong>Xn</strong> <input type="number" id="txtXn" value="0" min="-100" max="100" step="1" class="txt" onchange="txtXn_change()"/></span><br />
+            <span title="Mật độ phần tử"><strong>D</strong> <input type="number" id="txtD" value="0.1" min="0.1" max="10" step="0.1" class="txt" onchange="txtD_change()"/></span>
+            <hr/><br />
+            <span title="Thời gian khảo sát"><strong>Δt</strong>(s) <input type="number" id="txtSnap" value="9999" min="1" max="9999" step="1" class="txt" onblur="txtSnap_change()" /></span>
+        </td>
+        <td align="center" valign="middle">
+            
+            <canvas id="canvasSong" height="401px" width="551px" style="border:1px solid"><strong style="color:red">TRÌNH DUYỆT NÀY KHÔNG HỖ TRỢ CANVAS!!!</strong></canvas><br /><br /><br />
+            <span title="Biên độ">&nbsp;<strong>A</strong>(cm) <input type="number" id="txtA" value="1" min="0.1" max="10" step="0.1" class="txt" onchange="txtA_change()"/></span>
+            <span title="Tần số">&nbsp;<strong>f</strong>(hz) <input type="number" id="txtF" value="1" min="0.1" max="10" step="0.1" class="txt" onchange="txtF_change()"/></span>
+            <span title="Bước sóng">&nbsp;<strong>λ</strong>(cm) <input type="number" id="txtL" value="4" min="1" max="50" step="1" class="txt" onchange="txtL_change()"/></span>
+            <span title="Pha ban đầu">&nbsp;<strong>φ</strong>(°) <input type="number" id="txtFi" value="0" min="-360" max="360" step="10" class="txt"  onchange="txtFi_change()"/></span><br /><br />
+            <input id="cmdBatDau"  type="button" class="but" value="Băt đầu" style="background-image: url('images/play.png')" onclick="cmdBatDau_click()"/>
+            <input id="cmdTamDung" type="button" class="but" value="Tạm dừng" disabled="true" style="background-image: url('images/pause.png')" onclick="cmdTamDung_click()"/>
+            <input id="cmdKetThuc" type="button" class="but" value="Kết thúc" disabled="true" style="background-image: url('images/stop.png')" onclick="cmdKetThuc_click()"/>
+        </td>
+        <td align="left" valign="middle">
+            <strong>&nbsp;Hiển thị</strong><br />
+            &nbsp;&nbsp;<span><input id="chkTrucToaDo" type="checkbox" class="chk" onclick="chkShow_click(SHOW_ORDINATE,this.checked)"/>Trục tọa độ</span><br />
+            &nbsp;&nbsp;<span><input id="chkLine" type="checkbox" class="chk" onclick="chkShow_click(SHOW_LINE,this.checked)"/>Khung dây</span><br />
+            &nbsp;&nbsp;<span title="Đánh dấu X"><input id="chkShow1" type="checkbox" class="chk" onclick="chkShow_click(SHOW_1,this.checked,txtMarkX.value);txtMarkX.disabled=!this.checked"/>Xm=<input id="txtMarkX" type="number" disabled="true" value="0" min="-40" max="40" step="1" class="txt" onchange="txtMarkX_change()" /></span><br />
+            &nbsp;&nbsp;<span title="Đánh dấu Z"><input id="chkShow2" type="checkbox" class="chk" onclick="chkShow_click(SHOW_2,this.checked,txtMarkZ.value);txtMarkZ.disabled=!this.checked"/>Zm=<input id="txtMarkZ" type="number" disabled="true" value="0" min="-40" max="40" step="1" class="txt" onchange="txtMarkZ_change()" /></span><br />
+            &nbsp;&nbsp;<span title="Đánh dấu Y"><input id="chkShow3" type="checkbox" class="chk" onclick="chkShow_click(SHOW_3,this.checked,txtMarkY.value);txtMarkY.disabled=!this.checked"/>Ym=<input id="txtMarkY" type="number" disabled="true" value="0" min="-40" max="40" step="1" class="txt" onchange="txtMarkY_change()" /></span><br />
+            <hr /><br />
+            <em>
+                <strong>&nbsp;Chú giải</strong><br />
+                &nbsp;&nbsp;<img src="images/3d/src.gif" />&nbsp;Nguồn sóng<br />
+                &nbsp;&nbsp;<img src="images/3d/mark.gif" />&nbsp;Đánh dấu<br />
+                &nbsp;&nbsp;<img src="images/3d/sprite.gif" />&nbsp;Phần tử<br />
+            </em>
+        </td>
+    </tr>
+</table>
+</center>
+</div>
+<div id="tabHienTuong" class="tab" style="display:none">
+    <iframe width="100%" height="540px" frameborder="0" name="video"></iframe>
+</div>
+
+</body>
+<script type="text/javascript">
+
+    function init() {
+        params = {
+            A: 1,
+            Fi: 0,
+            T: 1,
+            V: 8,
+            xn: 0,
+            yn: 0,
+            zn: 0,
+            maxX: 40,
+            maxY: 0,
+            maxZ: 40,
+            dv: 8,
+            centerX: 275,
+            centerY: 200,
+            clockCenterX: 489,
+            clockCenterY: 13,
+            digitWidth: 12,
+            space: 1,
+            snap: 9999,
+            dimension: 2,
+            isWater: true
+        };
+        aniSong = new song.ani.SongZ(canvasSong, params);
+        }
+</script>
+</html>

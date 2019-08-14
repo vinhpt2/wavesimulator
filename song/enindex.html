@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>3DEd - Simulation software</title>
+    <style type="text/css">
+        .node
+        {
+            cursor:pointer;
+        }
+        .node:hover
+        {
+            color:gold;
+        }
+    </style>
+    <script type="text/javascript">
+        function node_onclick(node) {
+            var children = node.nextElementSibling.nextElementSibling.children;
+            for (var i = 0; i < children.length; i++) {
+                children[i].style.display = node.collapse ? "" : "none";
+            }
+            node.src = node.collapse ? "minus.gif" : "plus.gif"
+            node.collapse = !node.collapse;
+        }
+    </script>
+</head>
+<body>
+    <table width="100%">
+        <col width="300px" />
+        <col width="*" />
+        <tr>
+            <td valign="top">
+                <ul>
+                <li style="list-style-type:none"><img src="logo.png"/><strong><a class="node" href="enmain.html" target="content">Wave Simulation</a></strong>
+                <a href="index.html" style="float:right"><em>Tiếng Việt</em> <img src="vn.png"/></a>
+                <ul>
+                    <li style="list-style-type:none"><img src="minus.gif" onclick="node_onclick(this)"/><strong><a class="node" href="ensongtrongthiennhien.html" target="content">Mechanical wave in nature</a></strong>
+                        <ul>
+                            <li><a class="node" href="ensutruyenphabuocsong.html" target="content">Transmit phase-wavelength </a></li>
+                            <li><a class="node" href="enchukyvantocsong.html" target="content">Period, frequency, velocity</a></li>
+                            <li><a class="node" href="enbiendonangluongsong.html" target="content">Amplitude, wave energy</a></li>
+
+                            <li><a class="node" href="app/EnSong.html" target="content">Experiment</a></li>
+                            <li><a class="node" href="app/EnSongZ.html" target="content">2.5D Simulation</a></li>
+                            <li><a class="node" href="app/EnSong3D.html" target="content">3D Simulation</a></li>
+                            <li><a class="node" href="app/EnVideoSong.html" target="content">Video illustration</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="list-style-type:none"><img src="minus.gif" onclick="node_onclick(this)"/><strong><a class="node" href="enchongchapgiaothoasong.html" target="content">Intersection, interference wave</a></strong>
+                        <ul>
+                            <li><a class="node" href="app/EnGiaoThoaSong.html" target="content">Experiment</a></li>
+                            <li><a class="node" href="app/EnGiaoThoaSongZ.html" target="content">2.5D Simulation</a></li>
+                            <li><a class="node" href="app/EnGiaoThoaSong3D.html" target="content">3D Simulation</a></li>
+                            <li><a class="node" href="app/EnVideoGiaoThoaSong.html" target="content">Video illustration</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="list-style-type:none"><img src="minus.gif" onclick="node_onclick(this)"/><strong><a class="node" href="ensongdung.html" target="content">Standing wave</a></strong>
+                        <ul>
+                            <li><a class="node" href="app/EnGiaoThoaSong.html?dung=1" target="content">Experiment</a></li>
+                            <li><a class="node" href="app/EnVideoSongDung.html" target="content">Video illustration</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </td>
+            <td>
+                <iframe width="100%" height="640px" frameborder="0" name="content" src="enmain.html"></iframe>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

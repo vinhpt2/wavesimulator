@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Wave interference</title>
+    <link rel="stylesheet" type="text/css" href="images/song.css" />
+    <script type="text/javascript" src="Const.js"></script>
+<script type="text/javascript" src="sprite/GiaoThoaSpriteManager.js"></script>
+<script type="text/javascript" src="ani/GiaoThoaSong.js"></script>
+<script type="text/javascript" src="Handler.js"></script>
+<script type="text/javascript" src="Handler2.js"></script>
+
+</head>
+<body onload="init()">
+<center>
+    <strong id="labCap" style="font-size:x-large">WAVE INTERFERENCE</strong>
+</center>
+    &nbsp;&nbsp;<span id="butMoPhong" class="on" onclick="this.className='on';butHienTuong.className='off';tabMoPhong.style.display='';tabHienTuong.style.display='none'" >&nbsp;Simulation&nbsp;</span>
+    <span id="butHienTuong" class="off" onclick="this.className='on';butMoPhong.className='off';tabHienTuong.style.display='';tabMoPhong.style.display='none'">&nbsp;<a href="VideoGiaoThoaSong.html" target="video">Experimental</a>&nbsp;</span>
+    
+<div id="tabMoPhong" class="tab">
+<center>
+<table>
+    <tr>
+        <td align="right" valign="middle">
+            <strong>Transverse<input type="radio" class="chk" name="radOrient" checked="checked" onclick="radOrient2_click(1)"/><br />
+            Longitudinal<input type="radio" class="chk" name="radOrient" onclick="radOrient2_click(2)"/><br />
+            <span name="stand">Mixed<input type="radio" class="chk" name="radOrient" onclick="radOrient2_click(3)"/></span><br />
+            </strong><br />
+            <fieldset id="setStand" style="display:none">
+                <legend>
+                    <input type="checkbox" class="chk" id="chkStand" checked="checked" onclick="chkStand_click()"/>Standing wave
+                </legend>
+                <em>
+                Fixed end<input type="radio" id="radFix" class="chk" name="radStand" checked="checked" onclick="chkStand_click()"/><br />
+                Free end<input type="radio" id="radFlex" class="chk" name="radStand" onclick="chkStand_click()"/><br />
+                </em>
+            </fieldset>
+            <hr/><br />
+           <span title="Wave source 1"><strong>Xn</strong><sub>1</sub> <input type="number" id="txtXn" value="0" min="-100" max="100" step="1" class="txt" onchange="txtXn_change()"/></span><br />
+            <span name="stand" title="Wave source 2"><strong>Xn</strong><sub>2</sub> <input type="number" id="txtXn2" value="0" min="-100" max="100" step="1" class="txt" onchange="txtXn2_change()"/></span><br />
+            <span title="Elements density"><strong>D</strong> <input type="number" id="txtD" value="0.1" min="0.1" max="10" step="0.1" class="txt" onchange="txtD_change()"/></span>
+            <hr/><br />
+            <span title="Duration time"><strong>Δt</strong>(s) <input type="number" id="txtSnap" value="9999" min="1" max="9999" step="1" class="txt" onblur="txtSnap_change()" /></span></td>
+        </td>
+        <td align="center" valign="middle">
+            <canvas id="canvasSong" height="401" width="481" style="border:1px solid"><strong style="color:red">THE BROWSER DOES NOT SUPPORT CANVAS!!!</strong></canvas><br /><br /><br />
+            <span title="Amplitude 1">&nbsp;<strong>A</strong><sub>1</sub>(cm) <input type="number" id="txtA" value="1" min="0.1" max="10" step="0.1" class="txt" onchange="txtA_change()"/></span>
+            <span title="Frequency 1">&nbsp;<strong>f</strong><sub>1</sub>(hz) <input type="number" id="txtF" value="1" min="0.1" max="10" step="0.1" class="txt" onchange="txtF_change()"/></span>
+            <span title="Wavelength 1">&nbsp;<strong>λ</strong><sub>1</sub>(cm) <input type="number" id="txtL" value="4" min="1" max="50" step="1" class="txt" onchange="txtL_change()"/></span>
+            <span title="Initial phase 1">&nbsp;<strong>φ</strong><sub>1</sub>(°) <input type="number" id="txtFi" value="0" min="-360" max="360" step="10" class="txt"  onchange="txtFi_change()"/></span><br />
+            <span name="stand" title="Amplitude 2">&nbsp;<strong>A</strong><sub>2</sub>(cm) <input type="number" id="txtA2" value="1" min="0.1" max="10" step="0.1" class="txt" onchange="txtA2_change()"/></span>
+            <span name="stand" title="Frequency 2">&nbsp;<strong>f</strong><sub>2</sub>(hz) <input type="number" id="txtF2" value="1" min="0.1" max="10" step="0.1" class="txt" onchange="txtF2_change()"/></span>
+            <span name="stand" title="Wavelength 2">&nbsp;<strong>λ</strong><sub>2</sub>(cm) <input type="number" id="txtL2" value="4" min="1" max="50" step="1" class="txt" onchange="txtL2_change()"/></span>
+            <span name="stand" title="Initial phase 2">&nbsp;<strong>φ</strong><sub>2</sub>(°) <input type="number" id="txtFi2" value="0" min="-360" max="360" step="10" class="txt"  onchange="txtFi2_change()"/></span><br /><br />
+            <input id="cmdBatDau"  type="button" class="but" value="Start" style="background-image: url('images/play.png')" onclick="cmdBatDau_click()"/>
+            <input id="cmdTamDung" type="button" class="but" value="Pause" disabled="true" style="background-image: url('images/pause.png')" onclick="cmdTamDung_click()"/>
+            <input id="cmdKetThuc" type="button" class="but" value="Stop" disabled="true" style="background-image: url('images/stop.png')" onclick="cmdKetThuc_click()"/>
+        </td>
+        <td align="left" valign="middle">
+            <strong>&nbsp;Display</strong><br />
+            <span><input id="chkLine" type="checkbox" class="chk" onclick="chkShow_click(SHOW_LINE,this.checked)" value="true"/>Wireframe</span><br />
+            <span><input id="chkShow1" type="checkbox" class="chk" onclick="chkShow_click(SHOW_1,this.checked)" value="true"/>Phase 1</span><br />
+            <span><input id="chkShow2" type="checkbox" class="chk" onclick="chkShow_click(SHOW_2,this.checked)" value="true"/>Phase 2</span><br />
+            <span><input id="chkShow3" type="checkbox" class="chk" onclick="chkShow_click(SHOW_3,this.checked)" value="true"/>Aggregate phase</span>
+            <hr /><br />
+            <em>
+                <strong>&nbsp;Legend</strong><br />
+                &nbsp;&nbsp;<img src="images/2d/Red.gif" />&nbsp;Source 1<br />
+                &nbsp;&nbsp;<img src="images/2d/Blue.gif" />&nbsp;Source 2<br />
+                &nbsp;&nbsp;<img src="images/2d/Green.gif" />&nbsp;Element<br />
+                &nbsp;&nbsp;<img src="images/2d/Yellow.gif" />&nbsp;<span title="Click an element">Element [click]</span><br />
+            </em>
+        </td>
+    </tr>
+</table>
+</center>
+</div>
+<div id="tabHienTuong" class="tab" style="display:none">
+    <iframe width="100%" height="540px" frameborder="0" name="video"></iframe>
+</div>
+</body>
+<script type="text/javascript">
+
+    function init() {
+
+        params = {
+            A: 1,
+            Fi: 0,
+            T: 1,
+            V: 4,
+            xn: -50,
+            A2: 1.5,
+            Fi2: 0,
+            T2: 1,
+            V2: 4,
+            xn2: 50,
+            density: 0.1,
+            maxX: 150,
+            dv: 40,
+            centerX: 240,
+            centerY: 120,
+            centerX2: 240,
+            centerY2: 80,
+            orient: { x: 0, y: -1 },
+            orient2: { x: 0, y: -1 },
+            clockCenterX: 419,
+            clockCenterY: 13,
+            digitWidth: 12,
+            dCenterX2: 160,
+            snap: 9999
+        };
+        aniSong = new song.ani.GiaoThoaSong(canvasSong, params);
+
+        if (location.search) {//song dung
+            labCap.innerHTML = "STANDING WAVE";
+            aniSong.isStand = chkStand.checked;
+            aniSong.isFix = radFix.checked;
+            aniSong.standing();
+            setStand.style.display = "";
+            var spans = document.getElementsByName("stand");
+            for(var i=0;i<spans.length;i++)
+                spans[i].style.display = "none";
+        }
+        }
+
+</script>
+</html>

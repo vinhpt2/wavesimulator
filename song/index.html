@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>3DEd - Phần mềm mô phỏng</title>
+    <style type="text/css">
+        .node
+        {
+            cursor:pointer;
+        }
+        .node:hover
+        {
+            color:gold;
+        }
+    </style>
+    <script type="text/javascript">
+        function node_onclick(node) {
+            var children = node.nextElementSibling.nextElementSibling.children;
+            for (var i = 0; i < children.length; i++) {
+                children[i].style.display = node.collapse ? "" : "none";
+            }
+            node.src = node.collapse ? "minus.gif" : "plus.gif"
+            node.collapse = !node.collapse;
+        }
+    </script>
+</head>
+<body>
+    <table width="100%">
+        <col width="300px" />
+        <col width="*" />
+        <tr>
+            <td valign="top">
+                <ul>
+                <li style="list-style-type:none"><img src="logo.png"/><strong><a class="node" href="main.html" target="content">Mô phỏng Sóng cơ</a></strong>
+                <a href="enindex.html" style="float:right"><em>English</em> <img src="en.png"/></a>
+                <ul>
+                    <li style="list-style-type:none"><img src="minus.gif" onclick="node_onclick(this)"/><strong><a class="node" href="songtrongthiennhien.html" target="content">Sóng cơ trong thiên nhiên</a></strong>
+                        <ul>
+                            <li><a class="node" href="sutruyenphabuocsong.html" target="content">Sự truyền pha-Bước sóng</a></li>
+                            <li><a class="node" href="chukyvantocsong.html" target="content">Chu kỳ, tần số, vận tốc</a></li>
+                            <li><a class="node" href="biendonangluongsong.html" target="content">Biên độ, năng lượng</a></li>
+
+                            <li><a class="node" href="app/Song.html" target="content">Thí nghiệm</a></li>
+                            <li><a class="node" href="app/SongZ.html" target="content">Mô phỏng 2.5D</a></li>
+                            <li><a class="node" href="app/Song3D.html" target="content">Mô phỏng 3D</a></li>
+                            <li><a class="node" href="app/VideoSong.html" target="content">Video thực tế</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="list-style-type:none"><img src="minus.gif" onclick="node_onclick(this)"/><strong><a class="node" href="chongchapgiaothoasong.html" target="content">Chồng chập giao thoa sóng</a></strong>
+                        <ul>
+                            <li><a class="node" href="app/GiaoThoaSong.html" target="content">Thí nghiệm</a></li>
+                            <li><a class="node" href="app/GiaoThoaSongZ.html" target="content">Mô phỏng 2.5D</a></li>
+                            <li><a class="node" href="app/GiaoThoaSong3D.html" target="content">Mô phỏng 3D</a></li>
+                            <li><a class="node" href="app/VideoGiaoThoaSong.html" target="content">Video thực tế</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li style="list-style-type:none"><img src="minus.gif" onclick="node_onclick(this)"/><strong><a class="node" href="songdung.html" target="content">Sóng dừng</a></strong>
+                        <ul>
+                            <li><a class="node" href="app/GiaoThoaSong.html?dung=1" target="content">Thí nghiệm</a></li>
+                            <li><a class="node" href="app/VideoSongDung.html" target="content">Video thực tế</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+            </td>
+            <td>
+                <iframe width="100%" height="640px" frameborder="0" name="content" src="main.html"></iframe>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
